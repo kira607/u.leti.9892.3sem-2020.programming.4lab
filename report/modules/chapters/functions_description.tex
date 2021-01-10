@@ -1,0 +1,254 @@
+\section*{Описание пользовательских функций}
+
+\subsection*{Модуль truck.h}
+
+\subsubsection*{Truck}
+
+\underline{Назначение:} Конструктор для инициализации объекта структуры
+
+\underline{Параметры:} \verb|-|
+
+\underline{Возвращаемое значение:} \verb|Truck|
+
+
+\subsubsection*{Truck}
+
+\underline{Назначение:} Конструктор для инициализации объекта структуры
+
+\underline{Параметры:} 
+
+\begin{itemize}
+    \item \verb|const Truck &truck| -- ссылка на структуру, из которой нужно скопировать поля.
+\end{itemize}
+
+\underline{Возвращаемое значение:} \verb|Truck|
+
+
+\subsection*{Модуль truck\_list.h}
+
+\subsubsection*{Get}
+
+\underline{Назначение:} Получение элемента списка
+
+\underline{Параметры:} 
+
+\begin{itemize}
+    \item \verb|int index| -- индекс получаемого элемента.
+\end{itemize}
+
+\underline{Возвращаемое значение:} \verb|Truck *|
+
+
+\subsubsection*{Add}
+
+\underline{Назначение:} Добавление элемента в список
+
+\underline{Параметры:} 
+
+\begin{itemize}
+    \item \verb|const Truck &truck| -- ссылка на добавляемый элемент.
+\end{itemize}
+
+\underline{Возвращаемое значение:} \verb|Truck *|
+
+\begin{comment}
+\subsubsection*{Delete}
+
+\underline{Назначение:} Удаление элемента из списка
+
+\underline{Параметры:} \verb|int index|
+
+\underline{Возвращаемое значение:} \verb|void|
+\end{comment}
+
+
+\subsubsection*{Free}
+
+\underline{Назначение:} Очистка списка
+
+\underline{Параметры:} \verb|-|
+
+\underline{Возвращаемое значение:} \verb|void|
+
+
+\subsubsection*{\_check\_index}
+
+\underline{Назначение:} Проверка полученного индекса
+
+\underline{Параметры:} 
+
+\begin{itemize}
+    \item \verb|int index| -- индекс проверяемого элемента.
+\end{itemize}
+
+\underline{Возвращаемое значение:} \verb|void|
+
+
+\subsection*{Модуль truck\_db.h}
+
+
+\subsubsection*{PrintAll}
+
+\underline{Назначение:} Вывод списка на экран
+
+\underline{Параметры:} \verb|-|
+
+\underline{Возвращаемое значение:} \verb|void|
+
+
+\subsubsection*{Print}
+
+\underline{Назначение:} Вывод элемента списка на экран
+
+\underline{Параметры:} 
+
+\begin{itemize}
+    \item \verb|int index| -- индекс выводимого элемента.
+\end{itemize}
+
+\underline{Возвращаемое значение:} \verb|void|
+
+
+\subsubsection*{Add}
+
+\underline{Назначение:} Добавление элемента в список
+
+\underline{Параметры:} \verb|-|
+
+\underline{Возвращаемое значение:} \verb|void|
+
+
+\subsubsection*{Clear}
+
+\underline{Назначение:} Очистка списка
+
+\underline{Параметры:} \verb|-|
+
+\underline{Возвращаемое значение:} \verb|void|
+
+
+\subsubsection*{Load}
+
+\underline{Назначение:} Загрузка списка из файла
+
+\underline{Параметры:} 
+
+\begin{itemize}
+    \item \verb|const std::string& db_path| -- путь к файлу
+\end{itemize}
+
+\underline{Возвращаемое значение:} \verb|void|
+
+
+\subsubsection*{Save}
+
+\underline{Назначение:} Сохранение списка в файле
+
+\underline{Параметры:} 
+
+\begin{itemize}
+    \item \verb|const std::string& db_path| -- путь к файлу
+\end{itemize}
+
+\underline{Возвращаемое значение:} \verb|void|
+
+
+\subsection*{Модуль cmd.h}
+
+
+\subsubsection*{Get}
+
+\underline{Назначение:} Получение ввода комманды
+
+\underline{Параметры:} \verb|-|
+
+\underline{Возвращаемое значение:} \verb|Command|
+
+
+\subsubsection*{Parse}
+
+\underline{Назначение:} Определение команды из ввода
+
+\underline{Параметры:} \verb|-|
+
+\underline{Возвращаемое значение:} \verb|Command|
+
+
+\subsubsection*{YN}
+
+\underline{Назначение:} Получение подтверждения пользователя (да/нет)
+
+\underline{Параметры:} 
+
+\begin{itemize}
+    \item \verb|const std::string &message| -- сообщение
+\end{itemize}
+
+\underline{Возвращаемое значение:} \verb|bool|
+
+
+\subsubsection*{Run}
+
+\underline{Назначение:} Выполнение введённой команды
+
+\underline{Параметры:} 
+
+\begin{itemize}
+    \item \verb|TruckDataBase &db| -- ссылка на интерфейс управления списком
+\end{itemize}
+
+\underline{Возвращаемое значение:} \verb|void|
+
+
+\subsubsection*{Add}
+
+\underline{Назначение:} Добавление элемента в список
+
+\underline{Параметры:} \verb|-|
+
+\underline{Возвращаемое значение:} \verb|void|
+
+
+\subsubsection*{Load}
+
+\underline{Назначение:} Загрузка списка из файла
+
+\underline{Параметры:} \verb|-|
+
+\underline{Возвращаемое значение:} \verb|void|
+
+
+\subsubsection*{Save}
+
+\underline{Назначение:} Сохранение списка в файле
+
+\underline{Параметры:} \verb|-|
+
+\underline{Возвращаемое значение:} \verb|void|
+
+
+\subsubsection*{Print}
+
+\underline{Назначение:} Вывод элемента на экран по индексу
+
+\underline{Параметры:} \verb|-|
+
+\underline{Возвращаемое значение:} \verb|void|
+
+
+\subsubsection*{PrintAll}
+
+\underline{Назначение:} Вывод всех элементов на экран
+
+\underline{Параметры:} \verb|-|
+
+\underline{Возвращаемое значение:} \verb|void|
+
+
+\subsubsection*{Help}
+
+\underline{Назначение:} Вывод справки
+
+\underline{Параметры:} \verb|-|
+
+\underline{Возвращаемое значение:} \verb|void|

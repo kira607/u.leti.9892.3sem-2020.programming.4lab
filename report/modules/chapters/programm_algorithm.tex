@@ -1,0 +1,517 @@
+\section*{Алгоритм программы}
+
+
+\subsection*{Модуль truck}
+
+
+\subsubsection*{Truck}
+
+\begin{lstlisting}
+	Truck();
+\end{lstlisting}
+
+\begin{itemize}
+	\item \verb|id = -1;|
+	\item \verb|brand = "";|
+	\item \verb|capacity = 0.f;|
+	\item \verb|transportation_distance = 0;|
+	\item \verb|prev = nullptr;|
+	\item \verb|next = nullptr;|
+\end{itemize}
+
+
+\subsubsection*{Truck}
+
+\begin{lstlisting}
+Truck(const Truck &truck);
+\end{lstlisting}
+
+\begin{itemize}
+	\item \verb|id = truck.id;|
+	\item \verb|brand = truck.brand;|
+	\item \verb|capacity = truck.capacity;|
+	\item \verb|transportation_distance = truck.transportation_distance;|
+	\item \verb|prev = nullptr;|
+	\item \verb|next = nullptr;|
+\end{itemize}
+
+
+\subsection*{Модуль truck\_list}
+
+
+\subsubsection*{Get}
+
+\begin{lstlisting}
+Truck *Get(int index) const;
+\end{lstlisting}
+
+\begin{itemize}
+	\item \verb|_check_index(index);|
+	\item \verb|auto p = head;|
+	\item Цикл по \verb|i| от \verb|0| до \verb|index|
+	\begin{itemize}
+		\item Если \verb|p->next|
+		\item \verb|    p = p->next;|
+		\item Иначе
+		\item \verb|    return nullptr;|
+	\end{itemize}
+	\item \verb|return p;|
+\end{itemize}
+
+
+\subsubsection*{Add}
+
+\begin{lstlisting}
+Truck *Add(const Truck &truck);
+\end{lstlisting}
+
+\begin{itemize}
+	\item \verb|auto *new_node = new Truck(truck);|
+	\item Если \verb|size == 0|
+	\begin{itemize}
+		\item \verb|head = new_node;|
+		\item \verb|tail = new_node;|
+		\item \verb|new_node->prev = nullptr;|
+		\item \verb|new_node->next = nullptr;|
+	\end{itemize}
+	\item Иначе
+	\begin{itemize}
+		\item \verb|new_node->prev = tail;|
+		\item \verb|new_node->prev->next = new_node;|
+		\item \verb|new_node->next = nullptr;|
+		\item \verb|tail = new_node;|
+	\end{itemize}
+	\item \verb|++size;|
+	\item \verb|return new_node;|
+\end{itemize}
+
+
+\subsubsection*{Free}
+
+\begin{lstlisting}
+void Free();
+\end{lstlisting}
+
+\begin{itemize}
+	\item \verb|Truck *p = head;|
+	\item Пока \verb|p != nullptr|
+	\begin{itemize}
+		\item \verb|Truck *next = p->next;|
+		\item \verb|delete p;|
+		\item \verb|p = next;|
+	\end{itemize}
+	\item \verb|head = nullptr;|
+	\item \verb|tail = nullptr;|
+	\item \verb|size = 0;|
+\end{itemize}
+
+
+\subsubsection*{\_check\_index}
+
+\begin{lstlisting}
+void _check_index(const int &index) const;
+\end{lstlisting}
+
+\begin{itemize}
+	\item Если \verb|index < 0 |||\verb| index >= size|
+	\begin{itemize}
+		\item \verb|std::stringstream message;|
+		\item \verb|message << "Index out of range (possible [0-" << size-1 << "], given " << index << ")";|
+		\item \verb|throw std::out_of_range(message.str().c_str());|
+	\end{itemize}
+\end{itemize}
+
+
+\subsection*{Модуль truck\_db}
+
+
+\subsubsection*{PrintAll}
+
+\begin{lstlisting}
+void PrintAll() const;
+\end{lstlisting}
+
+\begin{itemize}
+	\item \verb|std::cout << std::left|\\
+	\verb|<< std::setw(4)  << "id "|\\
+	\verb|<< std::setw(14) << "brand "|\\
+	\verb|<< std::setw(10)  << "capacity "|\\
+	\verb|<< std::setw(5)  << "transportation_distance\n";|
+	\item Цикл по \verb|i| от \verb|0| до \verb|list.size| 
+	\begin{itemize}
+		\item \verb|Print(i);|
+	\end{itemize}
+\end{itemize}
+
+
+\subsubsection*{Print}
+
+\begin{lstlisting}
+void Print(int index, bool print_header = false) const;
+\end{lstlisting}
+
+\begin{itemize}
+	\item \verb|list._check_index(index);|
+	\item \verb|auto p = list.Get(index);|
+	\item Если \verb|print_header|
+	\begin{itemize}
+		\item \verb|std::cout << std::left|\\
+		\verb|<< std::setw(4)  << "id "|\\
+		\verb|<< std::setw(14) << "brand "|\\
+		\verb|<< std::setw(10)  << "capacity "|\\
+		\verb|<< std::setw(5)  << "transportation_distance\n";|
+	\end{itemize}
+	\item \verb|std::cout << std::left|
+	\verb|<< std::setw(3)  << p-> id << " "|\\
+	\verb|<< std::setw(13) << str(p->brand) << " "|\\
+	\verb|<< std::setw(9)  << p->capacity << " "|\\
+	\verb|<< std::setw(5)  << p->transportation_distance << "\n";|
+\end{itemize}
+
+
+\subsubsection*{Add}
+
+\begin{lstlisting}
+void Add();
+\end{lstlisting}
+
+\begin{itemize}
+	\item \verb|Truck new_element;|
+	\item \verb|new_element.id = list.size > 0 ? list.Get(list.size-1)->id + 1 : 0;|
+	\item \verb|Input(new_element.brand, "brand: ");|
+	\item \verb|Input(new_element.capacity, "capacity: ");|
+	\item \verb|Input(new_element.transportation_distance, "transportation distance: ");|
+	\item \verb|list.Add(new_element);|
+\end{itemize}
+
+
+\subsubsection*{Clear}
+
+\begin{lstlisting}
+	void Clear();
+\end{lstlisting}
+
+\begin{itemize}
+	\item \verb|list.Free();|
+\end{itemize}
+
+
+\subsubsection*{Load}
+
+\begin{lstlisting}
+	void Load(const std::string& db_path);
+\end{lstlisting}
+
+\begin{itemize}
+	\item \verb|Truck truck{};|
+	\item \verb|io::CSVReader<4> in(db_path);|
+	\item \verb|in.read_header(io::ignore_extra_column, "id",|\\
+	\verb|"brand", "capacity", "transportation_distance");|
+	\item Пока \verb|in.read_row(truck.id, truck.brand,|\\ 
+	\verb|truck.capacity, truck.transportation_distance)|
+	\begin{itemize}
+		\item \verb|list.Add(truck);|
+	\end{itemize}
+\end{itemize}
+
+
+\subsubsection*{Save}
+
+\begin{lstlisting}
+	void _updateDbFile(const std::string& db_path) const;
+\end{lstlisting}
+
+\begin{itemize}
+	\item \verb|std::ofstream fout(db_path, std::ios_base::trunc);|
+	\item \verb|fout << "id,brand,capacity,transportation_distance\n";|
+	\item \verb|Truck *p = list.head;|
+	\item Пока \verb|p|
+	\begin{itemize}
+		\item 
+		\verb|fout << p->id << ","|\\
+		\verb|     << p->brand << ","|\\
+		\verb|     << p->capacity << ","|\\
+		\verb|     << p->transportation_distance;|
+		\item \verb|fout << "\n";|
+		\item \verb|p = p->next;|
+	\end{itemize}
+\end{itemize}
+
+
+\subsection*{Модуль cmd}
+
+
+\subsubsection*{Get}
+
+\begin{lstlisting}
+	Command Get();
+\end{lstlisting}
+
+\begin{itemize}
+	\item \verb|std::cout << prompt;|
+	\item \verb|std::cin >> std::noskipws >> command_str;|
+	\item \verb|std::cin.clear();|
+	\item \verb|std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');|
+	\item \verb|return Parse();|
+\end{itemize}
+
+
+\subsubsection*{Parse}
+
+\begin{lstlisting}
+	Command Parse();
+\end{lstlisting}
+
+\begin{itemize}
+	\item \verb|command = Command::NONE;|
+	\item Если \verb|command_str == "add"|
+		\begin{itemize}
+			\item \verb|command = Command::Add;|
+		\end{itemize}
+	\item Если \verb|command_str == "load"|
+		\begin{itemize}
+			\item \verb|command = Command::Load;|
+		\end{itemize}
+	\item Если \verb|command_str == "save"|
+		\begin{itemize}
+			\item \verb|command = Command::Save;|
+		\end{itemize}
+	\item Если \verb|command_str == "print"|
+		\begin{itemize}
+			\item \verb|command = Command::Print;|
+		\end{itemize}
+	\item Если \verb|command_str == "printall"|
+		\begin{itemize}
+			\item \verb|command = Command::PrintAll;|
+		\end{itemize}
+	\item Если \verb|command_str == "help"|
+		\begin{itemize}
+			\item \verb|command = Command::Help;|
+		\end{itemize}
+	\item Если \verb|command_str == "exit"|
+		\begin{itemize}
+			\item \verb|command = Command::Exit;|
+		\end{itemize}
+	\item Если \verb|command_str.empty())|
+		\begin{itemize}
+			\item \verb|command = Command::Skip;|
+		\end{itemize}
+	\item \verb|return command;|
+\end{itemize}
+
+
+\subsubsection*{YN}
+
+\begin{lstlisting}
+	static bool YN(const std::string &message);
+\end{lstlisting}
+
+\begin{itemize}
+	\item \verb|std::string choice;|
+	\item \verb|Input(choice, message + " (y/n): ");|
+	\item \verb|return choice == "y";|
+\end{itemize}
+
+
+\subsubsection*{Run}
+
+\begin{lstlisting}
+	void Run(TruckDataBase &db);
+\end{lstlisting}
+
+\begin{itemize}
+	\item \verb|tp = &db;|
+	\item Смотрим на \verb|command|
+		\begin{itemize}
+			\item Если \verb|Command::Add:|
+				\begin{itemize}
+					\item \verb|Add();|
+					\item \verb|break;|
+				\end{itemize}
+			\item Если \verb|Command::Load:|
+				\begin{itemize}
+					\item \verb|Load();|
+					\item \verb|break;|
+				\end{itemize}
+			\item Если \verb|Command::Save:|
+				\begin{itemize}
+					\item \verb|Save();|
+					\item \verb|break;|
+				\end{itemize}
+			\item Если \verb|Command::Print:|
+				\begin{itemize}
+					\item \verb|Print();|
+					\item \verb|break;|
+				\end{itemize}
+			\item Если \verb|Command::PrintAll:|
+				\begin{itemize}
+					\item \verb|PrintAll();|
+					\item \verb|break;|
+				\end{itemize}
+			\item Если \verb|Command::Help:|
+				\begin{itemize}
+					\item \verb|Help();|
+					\item \verb|break;|
+				\end{itemize}
+			\item Если \verb|Command::Exit:|
+			\item Если \verb|Command::Skip:|
+				\begin{itemize}
+					\item \verb|break;|
+				\end{itemize}
+			\item Если \verb|Command::NONE:|
+				\begin{itemize}
+					\item \verb|std::cout << "Unknown command '" << |
+					\verb|command_str << "'. Try 'help'.\n";|
+					\item \verb|break;|
+				\end{itemize}
+		\end{itemize}
+\end{itemize}
+
+
+\subsubsection*{Add}
+
+\begin{lstlisting}
+	void Add() const;
+\end{lstlisting}
+
+\begin{itemize}
+	\item \verb|tp->Add();|
+\end{itemize}
+
+
+\subsubsection*{Load}
+
+\begin{lstlisting}
+	void Load() const;
+\end{lstlisting}
+
+\begin{itemize}
+	\item \verb||
+	
+	\item Если \verb|tp->list.size > 0|
+		\begin{itemize}
+			\item Если \verb|!YN("Loading file will rewrite current list.| 
+			\verb|Continue loading?")|
+			\item \verb|    return;|
+		\end{itemize}
+    \item \verb|tp->Exit();|
+	\item Пытаемся
+		\begin{itemize}
+			\item \verb|std::string file;|
+			\item \verb|Input(file, "Path to file: ");|
+			\item \verb|tp->Load(file);|
+		\end{itemize}
+	\item Ловим \verb|const std::exception &e|
+		\begin{itemize}
+			\item \verb|std::cout << "Error loading: " << |
+			\verb|e.what() << ". Loading aborted.\n";|
+		\end{itemize}
+\end{itemize}
+
+
+\subsubsection*{Save}
+
+\begin{lstlisting}
+	void Save() const;
+\end{lstlisting}
+
+\begin{itemize}
+	\item \verb|std::string file;|
+    \item \verb|Input(file, "Path to file: ");|
+	\item Если \verb|std::filesystem::is_directory(file)|
+		\begin{itemize}
+			\item \verb|std::cout << "'" << file << "' is a directory.\n";|
+			\item \verb|return;|
+		\end{itemize}
+	\item Если \verb|!std::filesystem::exists(file)|
+		\begin{itemize}
+			\item \verb|tp->Save(file);|
+			\item \verb|return;|
+		\end{itemize}
+    \item \verb|std::cout << "File '" << file << "' exists already\n";|
+	\item Если \verb|!YN("Rewrite it?")|
+		\begin{itemize}
+			\item \verb|std::cout << "Saving aborted\n";|
+			\item \verb|return;|
+		\end{itemize}
+    \item \verb|std::cout << "Saving...\n";|
+    \item \verb|tp->Save(file);|
+    \item \verb|std::cout << "Saved\n";|
+\end{itemize}
+
+
+\subsubsection*{Print}
+
+\begin{lstlisting}
+	void Print() const;
+\end{lstlisting}
+
+\begin{itemize}
+	\item Если \verb|tp->list.size == 0|
+		\begin{itemize}
+			\item \verb|std::cout << "Nothing to print. Try 'add'.\n";|
+			\item \verb|return;|
+		\end{itemize}
+    \item \verb|int index;|
+    \item \verb|Input(index, "Index: ");|
+	\item Пытаемся
+		\begin{itemize}
+			\item \verb|tp->Print(index, true);|
+		\end{itemize}
+	\item Ловим \verb|const std::exception &e|
+		\begin{itemize}
+			\item \verb|std::cout << e.what() << "\n";|
+		\end{itemize}
+\end{itemize}
+
+
+\subsubsection*{PrintAll}
+
+\begin{lstlisting}
+	void PrintAll() const;
+\end{lstlisting}
+
+\begin{itemize}
+	\item \verb||
+	\item Если \verb|tp->list.size == 0|
+		\begin{itemize}
+			\item \verb|std::cout << "Nothing to print. Try 'add'.\n";|
+			\item \verb|return;|
+		\end{itemize}
+    \item \verb|tp->PrintAll();|
+\end{itemize}
+
+
+\subsubsection*{Help}
+
+\begin{lstlisting}
+	static void Help();
+\end{lstlisting}
+
+\begin{itemize}
+	\item \verb|std::cout << "\nCommands:\n";|
+    \item \verb|std::cout << "  add - add new item in list\n";|
+    \item \verb|std::cout << "  load - load list from file\n";|
+    \item \verb|std::cout << "  save - save list in file\n";|
+    \item \verb|std::cout << "  print - print item by index\n";|
+    \item \verb|std::cout << "  printall - print all items\n";|
+    \item \verb|std::cout << "  help - see this help\n";|
+    \item \verb|std::cout << "  exit - exit program\n\n";|
+\end{itemize}
+
+
+\subsection*{main}
+
+\begin{itemize}
+	\item \verb|TruckDataBase db{};|
+    \item \verb|Command command;|
+    \item \verb|Cmd cmd;|
+    \item Выполнять
+		\begin{itemize}
+			\item \verb|command = cmd.Get();|
+			\item \verb|cmd.Run(db);|
+		\end{itemize}
+    \item Пока \verb|command != Command::Exit|
+    \item \verb|db.Exit();|
+    \item \verb|return 0;|
+\end{itemize}

@@ -1,0 +1,34 @@
+\usepackage{xcolor}
+\usepackage{listings}  % листинги кода из файлов
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{cpp}
+{
+	backgroundcolor=\color{backcolour},% цвет фона подсветки
+	commentstyle=\color{codegreen},
+	keywordstyle=\color{magenta},
+	numberstyle=\small\color{codegray},% размер шрифта для номеров строк
+	stringstyle=\color{codepurple},
+	basicstyle=\ttfamily\footnotesize, % размер и начертание шрифта для подсветки кода
+	breakatwhitespace=false,           % переносить строки только если есть пробел  
+	breaklines=true,                   % автоматически переносить строки (да\нет)  
+	captionpos=t,                      % позиция заголовка вверху [t] или внизу [b]
+	keepspaces=true,                 
+	numbers=left,                   % где поставить нумерацию строк (слева\справа)            
+	numbersep=5pt,                  % как далеко отстоят номера строк от подсвечиваемого кода           
+	showspaces=false,               % показывать или нет пробелы специальными отступами       
+	showstringspaces=false,         % показывать или нет пробелы в строках
+	showtabs=false,                 % показывать или нет табуляцию в строках        
+	tabsize=2,                      % размер табуляции по умолчанию равен 2 пробелам
+	language=c++,                   % выбор языка для подсветки (здесь это С++)                   
+	stepnumber=1,                   % размер шага между двумя номерами строк
+	frame=false,                    % рисовать рамку вокруг кода
+	escapeinside={\%*}{*)},         % если нужно добавить комментарии в коде
+	extendedchars=\true
+}
+
+\lstset{style=cpp}
