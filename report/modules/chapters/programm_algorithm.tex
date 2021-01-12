@@ -500,6 +500,78 @@ void Add();
 \end{itemize}
 
 
+\subsection*{Модуль input.h}
+
+
+\subsubsection*{Input}
+
+\begin{lstlisting}
+	int Input(int &element, const std::string &message = "", int l = _min_int, int r = _max_int);
+\end{lstlisting}
+
+\begin{itemize}
+	\item \verb|bool input = true;|
+	\item Пока \verb|input|
+		\begin{itemize}
+			\item \verb|std::cout << message;|
+			\item \verb|std::cin >> element;|
+			\item Если \verb|std::cin.fail() |||\verb| (element < l |||\verb| element > r)|
+			\item \verb|    std::cout << "Wrong input!\n";|
+			\item Иначе
+			\item \verb|    input = false;|
+			\item \verb|std::cin.clear();|
+			\item \verb|std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');|
+		\end{itemize}
+    \item \verb|return element;|
+\end{itemize}
+
+
+\subsubsection*{Input}
+
+\begin{lstlisting}
+	float Input(float &element, const std::string &message = "", float l = _min_float, float r = _max_float);
+\end{lstlisting}
+
+\begin{itemize}
+	\item \verb|bool input = true;|
+	\item Пока \verb|input|
+		\begin{itemize}
+			\item \verb|std::cout << message;|
+			\item \verb|std::cin >> element;|
+			\item Если \verb|std::cin.fail() |||\verb| (element < l |||\verb| element > r)|
+			\item \verb|    std::cout << "Wrong input!\n";|
+			\item Иначе
+			\item \verb|    input = false;|
+			\item \verb|std::cin.clear();|
+			\item \verb|std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');|
+		\end{itemize}
+    \item \verb|return element;|
+\end{itemize}
+
+
+\subsubsection*{Input}
+
+\begin{lstlisting}
+	std::string Input(std::string &element, const std::string &message = "");
+\end{lstlisting}
+
+\begin{itemize}
+	\item \verb|bool input = true;|
+	\item Пока \verb|input|
+		\begin{itemize}
+			\item \verb|std::cout << message;|
+			\item \verb|std::cin >> element;|
+			\item Если \verb|std::cin.fail()|
+			\item \verb|    std::cout << "Wrong input!\n";|
+			\item Иначе
+			\item \verb|    input = false;|
+			\item \verb|std::cin.clear();|
+			\item \verb|std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');|
+		\end{itemize}
+    \item \verb|return element;|
+\end{itemize}
+
+
 \subsection*{main}
 
 \begin{itemize}

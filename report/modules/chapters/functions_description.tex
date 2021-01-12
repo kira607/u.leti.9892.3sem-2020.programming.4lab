@@ -252,3 +252,51 @@
 \underline{Параметры:} \verb|-|
 
 \underline{Возвращаемое значение:} \verb|void|
+
+
+\subsection*{Модуль input.h}
+
+\subsubsection*{Input}
+
+\underline{Назначение:} Ввод данных типа \verb|int|
+
+\underline{Параметры:} 
+
+\begin{itemize}
+	\item \verb|int &element| -- ссылка на вводимый элемент
+	\item \verb|const std::string &message = ""| -- сообщение, приглашающее к вводу
+	\item \verb|int l = _min_int| -- левая граница ввода
+	\item \verb|int r = _max_int| -- правая граница ввода
+\end{itemize}
+
+\underline{Возвращаемое значение:} \verb|int|
+
+
+\subsubsection*{Input}
+
+\underline{Назначение:} Ввод данных типа \verb|float|
+
+\underline{Параметры:} 
+
+\begin{itemize}
+    \item \verb|float &element| -- ссылка на вводимый элемент
+    \item \verb|const std::string &message = ""| -- сообщение, приглашающее к вводу
+    \item \verb|float l = _min_float| -- левая граница ввода
+    \item \verb|float r = _max_float| -- правая граница ввода
+\end{itemize}
+
+\underline{Возвращаемое значение:} \verb|float|
+
+
+\subsubsection*{Input}
+
+\underline{Назначение:} Ввод данных типа \verb|std::string|
+
+\underline{Параметры:} 
+
+\begin{itemize}
+    \item \verb|std::string &element| -- ссылка на вводимый элемент
+    \item \verb|const std::string &message = ""| -- сообщение, приглашающее к вводу
+\end{itemize}
+
+\underline{Возвращаемое значение:} \verb|std::string|
