@@ -5,7 +5,8 @@ int main()
     TruckDataBase db{};
     Command command;
     Cmd cmd;
-
+    cmd.Help();
+    
     do
     {
         command = cmd.Get();
