@@ -17,6 +17,15 @@ enum Command
     Print,
     PrintAll,
     Help,
+    Insert,
+    Delete,
+    Edit,
+    SortByBrand,
+    SortByCapacity,
+    SortByDistance,
+    FindByBrand,
+    FindByCapacity,
+    FindByDistance,
     Exit,
     Skip,
     NONE,
@@ -41,6 +50,16 @@ struct Cmd
     void Print() const;
     void PrintAll() const;
     static void Help();
+
+    void Insert();
+    void Delete();
+    void Edit();
+    void SortByBrand();
+    void SortByCapacity();
+    void SortByDistance();
+    void FindByBrand();
+    void FindByCapacity();
+    void FindByDistance();
 };
 
 #endif //LAB3_CMD_H

@@ -76,4 +76,77 @@ void TruckDataBase::Save(const std::string& db_path) const
     }
 }
 
+void TruckDataBase::Find(bool(*fnd)(Truck* t, const std::string &fld), const std::string &fld)
+{
+    auto e = list.head;
+    int index = 0;
+    int count = 0;
+    while(e)
+    {
+        if(fnd(e, fld))
+        {
+            Print(index, count == 0);
+            ++count;
+        }
+        e = e->next;
+        ++index;
+    }
+    std::cout << "Found " << count << " items." << std::endl;
+}
+
+void TruckDataBase::Sort(bool(*gt)(Truck*, Truck*))
+{
+    _qsort(gt, list.head, list.tail);
+}
+
+/*
+@breif: Quick Sort implementation
+*/
+void TruckDataBase::_qsort(bool(*gt)(Truck*, Truck*), Truck *left, Truck *right)
+{
+    if(right != nullptr && right != left && left != right->next)
+    {
+        Truck *mid = _partition(gt, left, right);
+        _qsort(gt, left, mid->prev);
+        _qsort(gt, mid->next, right);
+    }
+}
+
+/*
+@breif: Splits list in two parts and returns index of pivot
+*/
+Truck *TruckDataBase::_partition(bool(*gt)(Truck*, Truck*), Truck *left, Truck *right)
+{
+    Truck *pivot = new Truck(*right);
+    Truck *smallest_i = left->prev;
+    for(auto current_j = left; current_j != right; current_j = current_j->next)
+    {
+        if(!gt(current_j, pivot))
+        {
+            smallest_i = (smallest_i == nullptr) ? left : smallest_i->next;
+            _swap(smallest_i, current_j);
+        }
+    }
+    smallest_i = (smallest_i == nullptr) ? left : smallest_i->next;
+    _swap(smallest_i, right);
+    delete pivot;
+    return smallest_i;
+}
+
+void TruckDataBase::_swap(Truck *a, Truck *b)
+{   
+    std::string brand = a->brand;
+    a->brand = b->brand;
+    b->brand = brand;
+
+    float cap = a->capacity;
+    a->capacity = b->capacity;
+    b->capacity = cap;
+
+    int dist = a->transportation_distance;
+    a->transportation_distance = b->transportation_distance;
+    b->transportation_distance = dist;
+}
+
+
 

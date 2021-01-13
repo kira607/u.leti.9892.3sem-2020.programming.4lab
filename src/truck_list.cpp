@@ -38,6 +38,18 @@ Truck *TruckList::Add(const Truck &truck)
     return new_node;
 }
 
+// ToDo: implement
+Truck *Insert(const Truck &truck) 
+{
+
+}
+
+// ToDo: implement
+void TruckList::Delete(int index)
+{
+
+}
+
 void TruckList::Free()
 {
     Truck *p = head;
