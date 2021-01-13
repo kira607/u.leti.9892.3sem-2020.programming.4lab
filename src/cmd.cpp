@@ -22,12 +22,12 @@ Command Cmd::Parse()
     if(command_str == "insert") command = Command::Insert;
     if(command_str == "delete") command = Command::Delete;
     if(command_str == "edit") command = Command::Edit;
-    if(command_str == "sort_by_brand") command = Command::SortByBrand;
-    if(command_str == "sort_by_capacity") command = Command::SortByCapacity;
-    if(command_str == "sort_by_distance") command = Command::SortByDistance;
-    if(command_str == "find_by_brand") command = Command::FindByBrand;
-    if(command_str == "find_by_capacity") command = Command::FindByCapacity;
-    if(command_str == "find_by_distance") command = Command::FindByDistance;
+    if(command_str == "sortbr") command = Command::SortByBrand;
+    if(command_str == "sortcap") command = Command::SortByCapacity;
+    if(command_str == "sortdist") command = Command::SortByDistance;
+    if(command_str == "findbr") command = Command::FindByBrand;
+    if(command_str == "findcap") command = Command::FindByCapacity;
+    if(command_str == "finddist") command = Command::FindByDistance;
     if(command_str.empty()) command = Command::Skip;
     return command;
 }
@@ -190,30 +190,72 @@ void Cmd::Help()
     std::cout << "  insert - insert item at a certian position in list\n";
     std::cout << "  delete - delete item by index\n";
     std::cout << "  edit - edit item by index\n";
-    std::cout << "  sort_by_brand - sort items by brand\n";
-    std::cout << "  sort_by_capacity - sort items by capacity\n";
-    std::cout << "  sort_by_distance - sort items by transportation distance\n";
-    std::cout << "  find_by_brand - find items by brand\n";
-    std::cout << "  find_by_capacity - find items by capacity\n";
-    std::cout << "  find_by_distance - find items by transportation distance\n\n";
+    std::cout << "  sortbr - sort items by brand\n";
+    std::cout << "  sortcap - sort items by capacity\n";
+    std::cout << "  sortdist - sort items by transportation distance\n";
+    std::cout << "  findbr - find items by brand\n";
+    std::cout << "  findcap - find items by capacity\n";
+    std::cout << "  finddist - find items by transportation distance\n\n";
 }
 
-void Cmd::Insert()
+void Cmd::Insert() const
 {
-
+    if (tp->list.size == 0)
+    {
+        std::cout << "You can't insert in empty list. Try 'add'.\n";
+        return;
+    }
+    int index;
+    Input(index, "Index (item will be inserted BEFORE it): ");
+    try
+    {
+        tp->Insert(index);
+    }
+    catch (const std::exception &e)
+    {
+        std::cout << e.what() << "\n";
+    }
 }
 
-void Cmd::Delete()
+void Cmd::Delete() const
 {
-
+    if (tp->list.size == 0)
+    {
+        std::cout << "List is empty. Try 'add'.\n";
+        return;
+    }
+    int index;
+    Input(index, "Index if item to delete: ");
+    try
+    {
+        tp->Delete(index);
+    }
+    catch (const std::exception &e)
+    {
+        std::cout << e.what() << "\n";
+    }
 }
 
-void Cmd::Edit()
+void Cmd::Edit() const
 {
-
+    if (tp->list.size == 0)
+    {
+        std::cout << "List is empty. Try 'add'.\n";
+        return;
+    }
+    int index;
+    Input(index, "Index if item to delete: ");
+    try
+    {
+        tp->Edit(index);
+    }
+    catch (const std::exception &e)
+    {
+        std::cout << e.what() << "\n";
+    }
 }
 
-void Cmd::SortByBrand()
+void Cmd::SortByBrand() const
 {
     auto cmp = 
     [](Truck *a, Truck *b)->bool
@@ -223,7 +265,7 @@ void Cmd::SortByBrand()
     tp->Sort(cmp);
 }
 
-void Cmd::SortByCapacity()
+void Cmd::SortByCapacity() const
 {
     auto cmp = 
     [](Truck *a, Truck *b)->bool
@@ -233,7 +275,7 @@ void Cmd::SortByCapacity()
     tp->Sort(cmp);
 }
 
-void Cmd::SortByDistance()
+void Cmd::SortByDistance() const
 {
     auto cmp = 
     [](Truck *a, Truck *b)->bool
@@ -243,7 +285,7 @@ void Cmd::SortByDistance()
     tp->Sort(cmp);
 }
 
-void Cmd::FindByBrand()
+void Cmd::FindByBrand() const
 {
     std::string input;
     Input(input, "Brand value: ");
@@ -263,7 +305,7 @@ void Cmd::FindByBrand()
     tp->Find(fnd, fld);
 }
 
-void Cmd::FindByCapacity()
+void Cmd::FindByCapacity() const
 {
     float input;
     Input(input, "Capacity value: ");
@@ -283,7 +325,7 @@ void Cmd::FindByCapacity()
     tp->Find(fnd, fld);
 }
 
-void Cmd::FindByDistance()
+void Cmd::FindByDistance() const
 {
     int input;
     Input(input, "Transportation distance value: ");

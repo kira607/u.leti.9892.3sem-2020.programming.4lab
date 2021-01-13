@@ -42,6 +42,61 @@ void TruckDataBase::Add()
     list.Add(new_element);
 }
 
+void TruckDataBase::Insert(int index)
+{
+    list._check_index(index);
+    Truck new_element;
+    new_element.id = list.size > 0 ? list.Get(list.size-1)->id + 1 : 0;
+    Input(new_element.brand, "brand: ");
+    Input(new_element.capacity, "capacity: ");
+    Input(new_element.transportation_distance, "transportation distance: ");
+    list.Insert(new_element, index);
+}
+
+void TruckDataBase::Delete(int index)
+{
+    list.Delete(index);
+    for(int i = index; i < list.size; ++i)
+    {
+        list.Get(i)->id = i;
+    }
+}
+
+void TruckDataBase::Edit(int index) const
+{
+    list._check_index(index);
+    Truck *target_element = list.Get(index);
+    while(true)
+    {
+        std::cout << "------------------------\n";
+        Print(index, true);
+        std::cout << "------------------------\n";
+        std::cout << "Choose filed:\n";
+        std::cout << "1 brand" << "\n";
+        std::cout << "2 capacity" << "\n";
+        std::cout << "3 distance" << "\n";
+        std::cout << "0 Finish edit" << "\n";
+
+        int option;
+        Input(option, "Input: ");
+
+        switch (option)
+        {
+            case 1:
+                Input(target_element->brand, "New value: ");
+                break;
+            case 2:
+                Input(target_element->capacity, "New value: ");
+                break;
+            case 3:
+                Input(target_element->transportation_distance, "New value: ");
+                break;
+            case 0: return;
+            default: std::cout << "\nIncorrect input\n\n";
+        }
+    }
+}
+
 void TruckDataBase::Clear()
 {
     list.Free();
@@ -117,8 +172,8 @@ void TruckDataBase::_qsort(bool(*gt)(Truck*, Truck*), Truck *left, Truck *right)
 */
 Truck *TruckDataBase::_partition(bool(*gt)(Truck*, Truck*), Truck *left, Truck *right)
 {
-    Truck *pivot = new Truck(*right);
-    Truck *smallest_i = left->prev;
+    auto *pivot = new Truck(*right);
+    Truck *smallest_i = nullptr;
     for(auto current_j = left; current_j != right; current_j = current_j->next)
     {
         if(!gt(current_j, pivot))

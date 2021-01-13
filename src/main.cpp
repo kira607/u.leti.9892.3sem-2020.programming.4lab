@@ -5,11 +5,7 @@ int main()
     TruckDataBase db{};
     Command command;
     Cmd cmd;
-    db.Load("../build/t");
-    db.PrintAll();
-    cmd.SortByDistance();
-    return 111;
-    //cmd.Help();
+    Cmd::Help();
     
     do
     {

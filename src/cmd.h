@@ -51,15 +51,15 @@ struct Cmd
     void PrintAll() const;
     static void Help();
 
-    void Insert();
-    void Delete();
-    void Edit();
-    void SortByBrand();
-    void SortByCapacity();
-    void SortByDistance();
-    void FindByBrand();
-    void FindByCapacity();
-    void FindByDistance();
+    void Insert() const;
+    void Delete() const;
+    void Edit() const;
+    void SortByBrand() const;
+    void SortByCapacity() const;
+    void SortByDistance() const;
+    void FindByBrand() const;
+    void FindByCapacity() const;
+    void FindByDistance() const;
 };
 
 #endif //LAB3_CMD_H
