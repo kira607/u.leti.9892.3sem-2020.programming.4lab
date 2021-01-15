@@ -26,6 +26,15 @@
 
 \subsection*{Модуль truck\_list.h}
 
+
+\subsubsection*{TruckList}
+
+\underline{Назначение:} Конструктор для инициализации объекта структуры
+
+\underline{Параметры:} \verb|-|
+
+\underline{Возвращаемое значение:} \verb|TruckList|
+
 \subsubsection*{Get}
 
 \underline{Назначение:} Получение элемента списка
@@ -51,15 +60,32 @@
 
 \underline{Возвращаемое значение:} \verb|Truck *|
 
-\begin{comment}
+
+\subsubsection*{Insert}
+
+\underline{Назначение:} Добавление элемента на определённую позицию в список
+
+\underline{Параметры:} 
+
+\begin{itemize}
+    \item \verb|const Truck &truck| -- ссылка на добавляемый элемент.
+    \item \verb|int index| -- индекс, перед которым будет вставлен элемент.
+\end{itemize}
+
+\underline{Возвращаемое значение:} \verb|Truck *|
+
+
 \subsubsection*{Delete}
 
 \underline{Назначение:} Удаление элемента из списка
 
-\underline{Параметры:} \verb|int index|
+\underline{Параметры:} 
+
+\begin{itemize}.
+    \item \verb|int index| -- индекс удаляемого элемента.
+\end{itemize}
 
 \underline{Возвращаемое значение:} \verb|void|
-\end{comment}
 
 
 \subsubsection*{Free}
@@ -118,6 +144,46 @@
 \underline{Возвращаемое значение:} \verb|void|
 
 
+\subsubsection*{Delete}
+
+\underline{Назначение:} Удаление элемента
+
+\underline{Параметры:} 
+
+\begin{itemize}
+    \item \verb|int index| -- индекс удаляемого элемента.
+\end{itemize}
+
+\underline{Возвращаемое значение:} \verb|void|
+
+
+\subsubsection*{Edit}
+
+\underline{Назначение:} Редактирование элемента
+
+\underline{Параметры:} 
+
+\begin{itemize}
+    \item \verb|int index| -- индекс редактируемого элемента.
+\end{itemize}
+
+\underline{Возвращаемое значение:} \verb|void|
+
+
+\subsubsection*{Insert}
+
+\underline{Назначение:} Вставка элемента
+
+\underline{Параметры:} 
+
+\begin{itemize}
+    \item \verb|int index| -- индекс 
+    элемента перед которым будет вставлен новый элемент.
+\end{itemize}
+
+\underline{Возвращаемое значение:} \verb|void|
+
+
 \subsubsection*{Clear}
 
 \underline{Назначение:} Очистка списка
@@ -148,6 +214,77 @@
 
 \begin{itemize}
     \item \verb|const std::string& db_path| -- путь к файлу
+\end{itemize}
+
+\underline{Возвращаемое значение:} \verb|void|
+
+
+\subsubsection*{Find}
+
+\underline{Назначение:} Поиск элементов
+
+\underline{Параметры:} 
+
+\begin{itemize}
+    \item \verb|bool(*fnd)(Truck* a, const std::string &fld)| -- функция для проверки критериев поиска для одного элемента.
+    \item \verb|const std::string &fld| -- значение поля.
+\end{itemize}
+
+\underline{Возвращаемое значение:} \verb|void|
+
+
+\subsubsection*{Sort}
+
+\underline{Назначение:} Сортировка списка
+
+\underline{Параметры:} 
+
+\begin{itemize}
+    \item \verb|bool(*gt)(Truck* a, Truck *b)| -- функция сравнения элементов 'greater than'.
+\end{itemize}
+
+\underline{Возвращаемое значение:} \verb|void|
+
+
+\subsubsection*{\_qsort}
+
+\underline{Назначение:} Сортировка списка (QuickSort)
+
+\underline{Параметры:} 
+
+\begin{itemize}
+    \item \verb|bool(*gt)(Truck* a, Truck *b)| -- функция сравнения элементов 'greater than'.
+    \item \verb|Truck *left| -- левая граница.
+    \item \verb|Truck *right| -- правая граница.
+\end{itemize}
+
+\underline{Возвращаемое значение:} \verb|void|
+
+
+\subsubsection*{\_partition}
+
+\underline{Назначение:} Разбиение списка (QuickSort)
+
+\underline{Параметры:} 
+
+\begin{itemize}
+    \item \verb|bool(*gt)(Truck* a, Truck *b)| -- функция сравнения элементов 'greater than'.
+    \item \verb|Truck *left| -- левая граница.
+    \item \verb|Truck *right| -- правая граница.
+\end{itemize}
+
+\underline{Возвращаемое значение:} \verb|Truck*|
+
+
+\subsubsection*{\_swap}
+
+\underline{Назначение:} Перестановка элементов.
+
+\underline{Параметры:} 
+
+\begin{itemize}
+    \item \verb|Truck *left| -- первый элемент.
+    \item \verb|Truck *right| -- второй элемент.
 \end{itemize}
 
 \underline{Возвращаемое значение:} \verb|void|
@@ -248,6 +385,87 @@
 \subsubsection*{Help}
 
 \underline{Назначение:} Вывод справки
+
+\underline{Параметры:} \verb|-|
+
+\underline{Возвращаемое значение:} \verb|void|
+
+
+\subsubsection*{Insert}
+
+\underline{Назначение:} Вставка элемента
+
+\underline{Параметры:} \verb|-|
+
+\underline{Возвращаемое значение:} \verb|void|
+
+
+\subsubsection*{Delete}
+
+\underline{Назначение:} Удаление элемента
+
+\underline{Параметры:} \verb|-|
+
+\underline{Возвращаемое значение:} \verb|void|
+
+
+\subsubsection*{Edit}
+
+\underline{Назначение:} Редактирование элемента
+
+\underline{Параметры:} \verb|-|
+
+\underline{Возвращаемое значение:} \verb|void|
+
+
+\subsubsection*{SortByBrand}
+
+\underline{Назначение:} Сортировка списка по марке
+
+\underline{Параметры:} \verb|-|
+
+\underline{Возвращаемое значение:} \verb|void|
+
+
+\subsubsection*{SortByCapacity}
+
+\underline{Назначение:} Сортировка списка по грузоподъёмности
+
+\underline{Параметры:} \verb|-|
+
+\underline{Возвращаемое значение:} \verb|void|
+
+
+\subsubsection*{SortByDistance}
+
+\underline{Назначение:} Сортировка списка по дальности перевозки
+
+\underline{Параметры:} \verb|-|
+
+\underline{Возвращаемое значение:} \verb|void|
+
+
+\subsubsection*{FindByBrand}
+
+\underline{Назначение:} Поиск элементов по марке
+
+\underline{Параметры:} \verb|-|
+
+\underline{Возвращаемое значение:} \verb|void|
+
+
+\subsubsection*{FindByCapacity}
+
+\underline{Назначение:} Поиск элементов по грузоподъёмности
+
+\underline{Параметры:} \verb|-|
+
+\underline{Возвращаемое значение:} \verb|void|
+
+
+\subsubsection*{FindByDistance}
+
+\underline{Назначение:} Поиск элементов по дальности перевозки
 
 \underline{Параметры:} \verb|-|
 
