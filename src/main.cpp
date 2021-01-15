@@ -5,7 +5,7 @@ int main()
     TruckDataBase db{};
     Command command;
     Cmd cmd;
-    cmd.Help();
+    Cmd::Help();
     
     do
     {
