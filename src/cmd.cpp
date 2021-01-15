@@ -244,7 +244,7 @@ void Cmd::Edit() const
         return;
     }
     int index;
-    Input(index, "Index if item to delete: ");
+    Input(index, "Index of item to delete: ");
     try
     {
         tp->Edit(index);

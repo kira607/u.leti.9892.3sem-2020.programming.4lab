@@ -46,11 +46,14 @@ void TruckDataBase::Insert(int index)
 {
     list._check_index(index);
     Truck new_element;
-    new_element.id = list.size > 0 ? list.Get(list.size-1)->id + 1 : 0;
     Input(new_element.brand, "brand: ");
     Input(new_element.capacity, "capacity: ");
     Input(new_element.transportation_distance, "transportation distance: ");
     list.Insert(new_element, index);
+    for(int i = 0; i < list.size; ++i)
+    {
+        list.Get(i)->id = i;
+    }
 }
 
 void TruckDataBase::Delete(int index)
@@ -173,19 +176,19 @@ void TruckDataBase::_qsort(bool(*gt)(Truck*, Truck*), Truck *left, Truck *right)
 Truck *TruckDataBase::_partition(bool(*gt)(Truck*, Truck*), Truck *left, Truck *right)
 {
     auto *pivot = new Truck(*right);
-    Truck *smallest_i = nullptr;
-    for(auto current_j = left; current_j != right; current_j = current_j->next)
+    Truck *smallest = nullptr;
+    for(auto current = left; current != right; current = current->next)
     {
-        if(!gt(current_j, pivot))
+        if(!gt(current, pivot))
         {
-            smallest_i = (smallest_i == nullptr) ? left : smallest_i->next;
-            _swap(smallest_i, current_j);
+            smallest = (smallest == nullptr) ? left : smallest->next;
+            _swap(smallest, current);
         }
     }
-    smallest_i = (smallest_i == nullptr) ? left : smallest_i->next;
-    _swap(smallest_i, right);
+    smallest = (smallest == nullptr) ? left : smallest->next;
+    _swap(smallest, right);
     delete pivot;
-    return smallest_i;
+    return smallest;
 }
 
 void TruckDataBase::_swap(Truck *a, Truck *b)

@@ -1,5 +1,12 @@
 #include "truck_list.h"
 
+TruckList::TruckList()
+{
+    head = nullptr;
+    tail = nullptr;
+    size = 0;
+}
+
 Truck *TruckList::Get(int index) const
 {
     _check_index(index);
@@ -47,12 +54,17 @@ Truck *TruckList::Insert(const Truck &truck, int index)
     if(index == 0)
     {
         new_node->next = target_node;
+        new_node->prev = nullptr;
+        target_node->prev = new_node;
+        head = new_node;
     }
-
-    new_node->next = target_node;
-    new_node->prev = target_node->prev;
-    target_node->prev = new_node;
-    new_node->prev->next = new_node;
+    else 
+    {
+        new_node->next = target_node;
+        new_node->prev = target_node->prev;
+        target_node->prev = new_node;
+        new_node->prev->next = new_node;
+    }
 
     ++size;
     return new_node;
