@@ -18,9 +18,18 @@ struct TruckDataBase
     void PrintAll() const;
     void Print(int index, bool print_header = false) const;
     void Add();
+    void Delete(int index);
+    void Edit(int index) const;
+    void Insert(int index);
     void Clear();
     void Load(const std::string& db_path);
     void Save(const std::string& db_path) const;
+    void Find(bool(*fnd)(Truck* a, const std::string &fld), const std::string &fld);
+    void Sort(bool(*gt)(Truck* a, Truck *b));
+
+    void _qsort(bool(*gt)(Truck* a, Truck *b), Truck *left, Truck *right);
+    static Truck *_partition(bool(*gt)(Truck*, Truck*), Truck *left, Truck *right);
+    static void _swap(Truck *a, Truck *b);
 };
 
 #endif //LAB3_TRUCK_DB_H
