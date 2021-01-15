@@ -39,6 +39,19 @@ Truck(const Truck &truck);
 \subsection*{Модуль truck\_list}
 
 
+\subsubsection*{TruckList}
+
+\begin{lstlisting}
+    TruckList();
+\end{lstlisting}
+
+\begin{itemize}
+    \item \verb|head = nullptr;|
+    \item \verb|tail = nullptr;|
+    \item \verb|size = 0;|
+\end{itemize}
+
+
 \subsubsection*{Get}
 
 \begin{lstlisting}
@@ -83,6 +96,79 @@ Truck *Add(const Truck &truck);
 	\end{itemize}
 	\item \verb|++size;|
 	\item \verb|return new_node;|
+\end{itemize}
+
+
+\subsubsection*{Insert}
+
+\begin{lstlisting}
+    Truck *Insert(const Truck &truck, int index);
+\end{lstlisting}
+
+\begin{itemize}
+	\item \verb|_check_index(index);|
+    \item \verb|auto new_node = new Truck(truck);|
+    \item \verb|auto target_node = Get(index);|
+	\item Если \verb|index == 0|
+		\begin{itemize}
+			\item \verb|new_node->next = target_node;|
+			\item \verb|new_node->prev = nullptr;|
+			\item \verb|target_node->prev = new_node;|
+			\item \verb|head = new_node;|
+		\end{itemize}
+	\item Иначе 
+		\begin{itemize}
+			\item \verb|new_node->next = target_node;|
+			\item \verb|new_node->prev = target_node->prev;|
+			\item \verb|target_node->prev = new_node;|
+			\item \verb|new_node->prev->next = new_node;|
+		\end{itemize}
+	\item \verb|++size;|
+	\item \verb|return new_node;|
+\end{itemize}
+
+
+
+\subsubsection*{Delete}
+
+\begin{lstlisting}
+    void Delete(int index);
+\end{lstlisting}
+
+\begin{itemize}
+    \item \verb|_check_index(index);|
+    \item Если \verb|size == 1 && index == 0|
+        \begin{itemize}
+            \item \verb|Free();|
+            \item \verb|return;|
+        \end{itemize}
+    \item Если \verb|index == 0|
+        \begin{itemize}
+            \item \verb|Truck *new_head = head->next;|
+            \item \verb|delete head;|
+            \item \verb|head = new_head;|
+            \item \verb|head->prev = nullptr;|
+            \item \verb|--size;|
+            \item \verb|return;|
+        \end{itemize}
+    \item Если \verb|index == size - 1|
+        \begin{itemize}
+            \item \verb|Truck *new_tail = tail->prev;|
+            \item \verb|delete tail;|
+            \item \verb|tail = new_tail;|
+            \item \verb|tail->next = nullptr;|
+            \item \verb|--size;|
+            \item \verb|return;|
+        \end{itemize}
+    \item \verb|auto p = Get(index);|
+    \item Если \verb|!p|
+        \begin{itemize}
+            \item \verb|return;|
+        \end{itemize}
+    \item \verb|p->next->prev = p->prev;|
+    \item \verb|p->prev->next = p->next;|
+    \item \verb|delete p;|
+    \item \verb|--size;|
 \end{itemize}
 
 
@@ -185,6 +271,82 @@ void Add();
 \end{itemize}
 
 
+\subsubsection*{Delete}
+
+\begin{lstlisting}
+    void Delete(int index);
+\end{lstlisting}
+
+\begin{itemize}
+	\item \verb|list.Delete(index);|
+    \item Цикл по \verb|i| от \verb|index| до \verb|list.size| 
+    \begin{itemize}
+        \item \verb|list.Get(i)->id = i;|
+    \end{itemize}
+\end{itemize}
+
+
+
+\subsubsection*{Edit}
+
+\begin{lstlisting}
+    void Edit(int index) const;
+\end{lstlisting}
+
+\begin{itemize}
+    \item \verb|list._check_index(index);|
+    \item \verb|Truck *target_element = list.Get(index);|
+    \item Пока \verb|true|
+        \begin{itemize}
+            \item \verb|std::cout << "------------------------\n";|
+            \item \verb|Print(index, true);|
+            \item \verb|std::cout << "------------------------\n";|
+            \item \verb|std::cout << "Choose filed:\n";|
+            \item \verb|std::cout << "1 brand" << "\n";|
+            \item \verb|std::cout << "2 capacity" << "\n";|
+            \item \verb|std::cout << "3 distance" << "\n";|
+            \item \verb|std::cout << "0 Finish edit" << "\n";|
+            \item \verb|int option = InputInt("Input: ");|
+            \item Смотрим на \verb|option|
+            \begin{itemize}
+                \item Если \verb|1:|
+                \item \verb|    Input(target_element->brand, "New value: ");|
+                \item \verb|    break;|
+                \item Если \verb|2:|
+                \item \verb|    Input(target_element->capacity, "New value: ");|
+                \item \verb|    break;|
+                \item Если \verb|3:|
+                \item \verb|    Input(target_element->transportation_distance, "New value: ");|
+                \item \verb|    break;|
+                \item Если \verb|0: return;|
+                \item По умолчанию \verb|: std::cout << "\nIncorrect input\n\n";|
+            \end{itemize}
+        \end{itemize}
+\end{itemize}
+
+
+
+\subsubsection*{Insert}
+
+\begin{lstlisting}
+    void Insert(int index);
+\end{lstlisting}
+
+\begin{itemize}
+	\item \verb|list._check_index(index);|
+    \item \verb|Truck new_element;|
+    \item \verb|Input(new_element.brand, "brand: ");|
+    \item \verb|Input(new_element.capacity, "capacity: ");|
+    \item \verb|Input(new_element.transportation_distance, "transportation distance: ");|
+	\item \verb|list.Insert(new_element, index);|
+	\item Цикл по \verb|i| от \verb|0| до \verb|list.size| 
+    \begin{itemize}
+        \item \verb|list.Get(i)->id = i;|
+    \end{itemize}
+\end{itemize}
+
+
+
 \subsubsection*{Clear}
 
 \begin{lstlisting}
@@ -236,6 +398,105 @@ void Add();
 		\item \verb|p = p->next;|
 	\end{itemize}
 \end{itemize}
+
+
+
+\subsubsection*{Find}
+
+\begin{lstlisting}
+    void Find(bool(*fnd)(Truck* a, const std::string &fld), const std::string &fld);
+\end{lstlisting}
+
+\begin{itemize}
+	\item \verb|auto e = list.head;|
+    \item \verb|int index = 0;|
+    \item \verb|int count = 0;|
+	\item Пока \verb|e|
+		\begin{itemize}
+			\item Если \verb|fnd(e, fld) |
+			\item \verb|    Print(index, count == 0);|
+			\item \verb|    ++count;|
+			\item \verb|e = e->next;|
+			\item \verb|++index;|
+		\end{itemize}
+    \item \verb|std::cout << "Found " << count << " items." << std::endl;|
+\end{itemize}
+
+
+
+\subsubsection*{Sort}
+
+\begin{lstlisting}
+    void Sort(bool(*gt)(Truck* a, Truck *b));
+\end{lstlisting}
+
+\begin{itemize}
+        \item \verb|_qsort(gt, list.head, list.tail);|
+\end{itemize}
+
+
+
+\subsubsection*{_qsort}
+
+\begin{lstlisting}
+    void _qsort(bool(*gt)(Truck* a, Truck *b), Truck *left, Truck *right);
+\end{lstlisting}
+
+\begin{itemize}
+	\item Если \verb|right != nullptr && right != left && left != right->next|
+		\begin{itemize}
+			\item \verb|Truck *mid = _partition(gt, left, right);|
+			\item \verb|_qsort(gt, left, mid->prev);|
+			\item \verb|_qsort(gt, mid->next, right);|
+		\end{itemize}
+\end{itemize}
+
+
+
+\subsubsection*{_partition}
+
+\begin{lstlisting}
+    static Truck *_partition(bool(*gt)(Truck*, Truck*), Truck *left, Truck *right);
+\end{lstlisting}
+
+\begin{itemize}
+	\item \verb|auto *pivot = new Truck(*right);|
+    \item \verb|Truck *smallest = nullptr;|
+	\item Цикл по \verb|current| от \verb|left| до \verb|current != right| инкремент \verb|current = current->next)|
+		\begin{itemize}
+			\item Если \verb|!gt(current, pivot)|
+				\begin{itemize}
+					\item \verb|smallest = (smallest == nullptr)|
+					\verb|? left : smallest->next;|
+					\item \verb|_swap(smallest, current);|
+				\end{itemize}
+		\end{itemize}
+    \item \verb|smallest = (smallest == nullptr) ? left : smallest->next;|
+    \item \verb|_swap(smallest, right);|
+    \item \verb|delete pivot;|
+    \item \verb|return smallest;|
+\end{itemize}
+
+
+
+\subsubsection*{_swap}
+
+\begin{lstlisting}
+    static void _swap(Truck *a, Truck *b);
+\end{lstlisting}
+
+\begin{itemize}
+	\item \verb|std::string brand = a->brand;|
+    \item \verb|a->brand = b->brand;|
+    \item \verb|b->brand = brand;|
+    \item \verb|float cap = a->capacity;|
+    \item \verb|a->capacity = b->capacity;|
+    \item \verb|b->capacity = cap;|
+    \item \verb|int dist = a->transportation_distance;|
+    \item \verb|a->transportation_distance = b->transportation_distance;|
+    \item \verb|b->transportation_distance = dist;|
+\end{itemize}
+
 
 
 \subsection*{Модуль cmd}
@@ -497,6 +758,203 @@ void Add();
     \item \verb|std::cout << "  printall - print all items\n";|
     \item \verb|std::cout << "  help - see this help\n";|
     \item \verb|std::cout << "  exit - exit program\n\n";|
+\end{itemize}
+
+
+\subsubsection*{Insert}
+
+\begin{lstlisting}
+    void Insert() const;
+\end{lstlisting}
+
+\begin{itemize}
+	\item Если \verb|if (tp->list.size == 0)|
+		\begin{itemize}
+			\item \verb|std::cout << "You can't insert in empty list. Try 'add'.\n";|
+			\item \verb|return;|
+		\end{itemize}
+    \item \verb|int index;|
+    \item \verb|Input(index, "Index (item will be inserted BEFORE it): ");|
+    \item Пытаемся
+    \item \verb|    tp->Insert(index);|
+    \item Ловим \verb|const std::exception &e|
+    \item \verb|    std::cout << e.what() << "\n";|
+\end{itemize}
+
+
+
+\subsubsection*{Delete}
+
+\begin{lstlisting}
+    void Delete() const;
+\end{lstlisting}
+
+\begin{itemize}
+	\item Если \verb|if (tp->list.size == 0)|
+	\begin{itemize}
+		\item \verb|std::cout << "List is empty. Try 'add'.\n";|
+		\item \verb|return;|
+	\end{itemize}
+	\item \verb|int index;|
+	\item \verb|Input(index, "Index of item to delete: ");|
+	\item Пытаемся
+	\item \verb|    tp->Delete(index);|
+	\item Ловим \verb|const std::exception &e|
+	\item \verb|    std::cout << e.what() << "\n";|
+\end{itemize}
+
+
+
+\subsubsection*{Edit}
+
+\begin{lstlisting}
+    void Edit() const;
+\end{lstlisting}
+
+\begin{itemize}
+	\item Если \verb|if (tp->list.size == 0)|
+	\begin{itemize}
+		\item \verb|std::cout << "List is empty. Try 'add'.\n";|
+		\item \verb|return;|
+	\end{itemize}
+	\item \verb|int index;|
+	\item \verb|Input(index, "Index of item to edit: ");|
+	\item Пытаемся
+	\item \verb|    tp->Edit(index);|
+	\item Ловим \verb|const std::exception &e|
+	\item \verb|    std::cout << e.what() << "\n";|
+\end{itemize}
+
+
+
+\subsubsection*{SortByBrand}
+
+\begin{lstlisting}
+    void SortByBrand() const;
+\end{lstlisting}
+
+\begin{itemize}
+	\item \verb|auto cmp =|\\
+    \verb|[](Truck *a, Truck *b)->bool|\\
+    \verb|{|\\
+	\verb|    return a->brand > b->brand;|\\
+    \verb|};|
+    \item \verb|tp->Sort(cmp);|
+\end{itemize}
+
+
+
+\subsubsection*{SortByCapacity}
+
+\begin{lstlisting}
+    void SortByCapacity() const;
+\end{lstlisting}
+
+\begin{itemize}
+	\item \verb|auto cmp =|\\
+    \verb|[](Truck *a, Truck *b)->bool|\\
+    \verb|{|\\
+	\verb|    return a->capacity > b->capacity;|\\
+    \verb|};|
+    \item \verb|tp->Sort(cmp);|
+\end{itemize}
+
+
+
+\subsubsection*{SortByDistance}
+
+\begin{lstlisting}
+    void SortByDistance() const;
+\end{lstlisting}
+
+\begin{itemize}
+	\item \verb|auto cmp =|\\
+    \verb|[](Truck *a, Truck *b)->bool|\\
+    \verb|{|\\
+	\verb|return a->transportation_distance > b->transportation_distance;|\\
+    \verb|};|
+    \item \verb|tp->Sort(cmp);|
+\end{itemize}
+
+
+
+\subsubsection*{FindByBrand}
+
+\begin{lstlisting}
+    void FindByBrand() const;
+\end{lstlisting}
+
+\begin{itemize}
+	\item \verb|std::string input;|
+    \item \verb|Input(input, "Brand value: ");|
+    \item \verb|auto fnd =|
+    \item \verb|[](Truck *a, const std::string& fld)->bool|\\
+    \verb|{|\\
+    \verb|    std::stringstream ss;|\\
+    \verb|    std::string target_filed;|\\
+    \verb|    ss << fld;|\\
+    \verb|    ss >> target_filed;|\\
+    \verb|    return a->brand == target_filed;|\\
+    \verb|};|
+    \item \verb|std::string fld;|
+    \item \verb|std::stringstream ss;|
+    \item \verb|ss << input;|
+    \item \verb|ss >> fld;|
+    \item \verb|tp->Find(fnd, fld);|
+\end{itemize}
+
+
+
+\subsubsection*{FindByCapacity}
+
+\begin{lstlisting}
+    void FindByCapacity() const;
+\end{lstlisting}
+
+\begin{itemize}
+	\item \verb|float input;|
+    \item \verb|Input(input, "Capacity value: ");|
+    \item \verb|auto fnd =|
+    \item \verb|[](Truck *a, const std::string& fld)->bool|\\
+    \verb|{|\\
+    \verb|    std::stringstream ss;|\\
+    \verb|    float target_filed;|\\
+    \verb|    ss << fld;|\\
+    \verb|    ss >> target_filed;|\\
+    \verb|    return a->capacity == target_filed;|\\
+    \verb|};|
+    \item \verb|std::string fld;|
+    \item \verb|std::stringstream ss;|
+    \item \verb|ss << input;|
+    \item \verb|ss >> fld;|
+    \item \verb|tp->Find(fnd, fld);|
+\end{itemize}
+
+
+
+\subsubsection*{FindByDistance}
+
+\begin{lstlisting}
+    void FindByDistance() const;
+\end{lstlisting}
+
+\begin{itemize}
+	\item \verb|int input;|
+    \item \verb|Input(input, "Transportation distance value: ");|
+    \item \verb|auto fnd =|
+    \item \verb|[](Truck *a, const std::string& fld)->bool|\\
+    \verb|{|\\
+    \verb|    std::stringstream ss;|\\
+    \verb|    int target_filed;|\\
+    \verb|    ss << fld;|\\
+    \verb|    ss >> target_filed;|\\
+    \verb|    return a->transportation_distance == target_filed;|\\
+    \verb|};|
+    \item \verb|std::string fld;|
+    \item \verb|std::stringstream ss;|
+    \item \verb|ss << input;|
+    \item \verb|ss >> fld;|
+    \item \verb|tp->Find(fnd, fld);|
 \end{itemize}
 
 
