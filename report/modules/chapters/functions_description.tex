@@ -226,8 +226,8 @@
 \underline{Параметры:} 
 
 \begin{itemize}
-    \item \verb|bool(*fnd)(Truck* a, const std::string &fld)| -- функция для проверки критериев поиска для одного элемента.
-    \item \verb|const std::string &fld| -- значение поля.
+    \item \verb|bool(*fnd)(Truck* a, const std::string &fld)| -- функция для проверки критериев поиска для одного элемента (на основе лямбда-выражения).
+    \item \verb|const std::string &fld| -- искомое значение поля.
 \end{itemize}
 
 \underline{Возвращаемое значение:} \verb|void|
@@ -240,7 +240,7 @@
 \underline{Параметры:} 
 
 \begin{itemize}
-    \item \verb|bool(*gt)(Truck* a, Truck *b)| -- функция сравнения элементов 'greater than'.
+    \item \verb|bool(*gt)(Truck* a, Truck *b)| -- функция сравнения элементов 'greater than' (на основе лямбда-выражения).
 \end{itemize}
 
 \underline{Возвращаемое значение:} \verb|void|
